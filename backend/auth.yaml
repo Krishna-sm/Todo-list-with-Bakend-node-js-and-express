@@ -1,0 +1,38 @@
+openapi: 3.0.0
+info:
+  title: User Data API
+  description: An example API for getting user data
+  version: 1.0.0
+servers:
+  - url: http://localhost:8000/api/v1
+  - url: http://localhost:8080
+paths:
+  /user:
+    post:
+      summary: Get user data
+      operationId: getUserData
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                image:
+                  type: string
+                  format: binary
+                name:
+                  type: string
+                age:
+                  type: integer
+      responses:
+        '200':
+          description: User data retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+      tags:
+        - User Data

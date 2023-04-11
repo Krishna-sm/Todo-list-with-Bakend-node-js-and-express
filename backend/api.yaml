@@ -1,0 +1,130 @@
+openapi: 3.0.0
+info:
+  title: Crud Apis--Todo
+  description: This is My Crud Todo App
+  version: 1.0
+  contact:
+    email: kana@gmail.com
+  liscence:
+    name: Apache 2.0
+    url: "http://apache.org"
+  servers:
+    -url: "http://localhost:8000"
+    description: This is My local server
+    -url: "http://krishna.com"
+    description: this i my own server
+
+
+
+paths:
+  
+  /api/v1/get-all:
+    get:
+      summary: Get All Todos
+      description: The todo will gives as an array of  An Object
+      parameters:
+        - in: header
+          name: Authorization
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: Fetch All todos
+          schema:
+            type: array
+            items:
+                type: object
+                properties:
+                  _id:
+                    type: string
+                  title:
+                    type: string
+                  desc: 
+                    type: string
+                  createdAt:
+                    type: string
+                  updatedAt:
+                    type: string
+                  __v:
+                    type: integer
+        500:
+          description: internal server errror
+      tags:
+        - get All Todo
+  /api/v1/create:
+    post:
+      summary: Create A todo
+      description: The todo will create with take a title of todo and description of todo
+      produces:
+        - application/json
+      consumes:
+        - application/json
+      parameters:
+        - in: body
+          name: todo
+          schema:
+            type: object
+            properties:
+              title:
+                type: string
+                required: true
+              desc:
+                type: string
+                required: true
+              
+      responses:
+        201:
+          description: your todo is created
+        200:
+          description:  feilds are missing
+        500:
+          description: Internal server error
+  /api/v1/update/{id}:
+    patch:
+      summary: id Is Manadary to update the Todo
+      description: Update your todo with Id 
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+        - in: body
+          name: todo
+          required: true
+          schema:
+            type: object
+            properties:
+              title:
+                type: string
+                required: true
+              desc:
+                type: string
+                required: true
+              
+      responses:
+        200:
+          description:  update success
+        500:
+          description: Internal server error
+  
+  /api/v1/delete/{id}:
+    delete:
+      summary: Delete the todo with id 
+      description: delete the todo with in the database 
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          desctiption:  Delete Successful
+        500:
+          description: internal server error
+            
+              
+      
+  
